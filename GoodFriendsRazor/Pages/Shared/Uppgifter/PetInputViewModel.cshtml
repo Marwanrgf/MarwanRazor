@@ -1,0 +1,77 @@
+﻿@page
+@model GoodFriendsRazor.Pages.Shared.Uppgifter.PetInputModel
+@{
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@attribute [IgnoreAntiforgeryToken]
+
+<div class="container px-4 py-4" id="add-edit-pet">
+    <h2 class="pb-2 border-bottom">Add or edit a pet's details</h2>
+    <p>Fill in the details below to add a pet.</p>
+    <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 py-5">
+        <div class="col-md-7 col-lg-8">
+            <form class="needs-validation" method="post" novalidate>
+                
+                <input asp-for="PetIM.FriendId" value="@Model.PetIM.FriendId" type="hidden" />
+                <input asp-for="PetIM.PetId" value="@Model.PetIM.PetId" type="hidden" />
+                <input asp-for="PetIM.StatusIM" value="@Model.PetIM.StatusIM" type="hidden" />
+                
+
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="petName" class="form-label">Name</label>
+                        <input asp-for="PetIM.Name" type="text" class="form-control " id="petName" placeholder="" value="@Model.PetIM.Name" required>
+                        <div class="invalid-feedback">
+                            The pet must have a name
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="petType" class="form-label">Type of animal</label>
+                        <select asp-for="PetIM.Kind" class="form-select " id="petType" required>
+
+                            <option value="@Model.PetIM.Kind">
+                                @(Model.PetIM.PetId != Guid.Empty ? $"Current: {Model.PetIM.Kind}" : Model.PetIM.Kind)
+                            </option>
+                            @foreach (var kind in new List<string> {"Cat", "Dog", "Rabbit", "Fish", "Bird"})
+                            {
+                                @if (Model.PetIM.Kind.ToString() != kind)
+                                {
+                                    <option value="@kind">@kind</option>
+                                }
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Select an animal type
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="petMood" class="form-label">Mood of the pet</label>
+                        <select asp-for="PetIM.Mood" class="form-select " id="petMood" required>
+
+                            <option value="@Model.PetIM.Mood">
+                                @(Model.PetIM.PetId != Guid.Empty ? $"Current: {Model.PetIM.Mood}" : Model.PetIM.Mood)
+                            </option>
+
+                            @foreach (var mood in new List<string> { "Happy", "Hungry", "Lazy", "Sulky", "Buzy", "Sleepy" })
+                            {
+                                @if (Model.PetIM.Mood.ToString() != mood)
+                                {
+                                    <option value=@mood>@mood</option>
+                                }
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Select the mood of the pet
+                        </div>
+                    </div>
+                </div>
+
+                <button class="w-100 btn btn-primary btn-lg my-4" asp-page-handler="Save" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</div>

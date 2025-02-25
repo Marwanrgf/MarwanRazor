@@ -1,0 +1,62 @@
+﻿@page
+@model GoodFriendsRazor.Pages.Shared.Uppgifter.QuoteInputModel
+@{
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@attribute [IgnoreAntiforgeryToken]
+
+<div class="container px-4 py-4" id="list-of-quotes">
+    <h2 class="pb-2 border-bottom">List of famous quotes</h2>
+
+    <p>Pick a famous quote.</p>
+    <form class="needs-validation" method="post" novalidate>
+
+        
+        <input asp-for="@Model.QuoteIM.FriendId" value="@Model.QuoteIM.FriendId" type="hidden" />
+        <input asp-for="@Model.QuoteIM.StatusIM" value="@Model.QuoteIM.StatusIM" type="hidden" />
+        <input asp-for="@Model.QuoteIM.QuoteId" value="@Model.QuoteIM.QuoteId" type="hidden" />
+
+        @if (Model.QuoteIM.QuoteId != Guid.Empty)
+        {
+            <div class="row mb-2 text-center">
+                <div class="col-md-10 themed-grid-col">
+                    <label for="quoteId" class="form-label">Edit Quote</label>
+                    <input asp-for="@Model.QuoteIM.Quote" type="text" class="form-control " id="petName" placeholder="" value="@Model.QuoteIM.Quote" required>
+                </div>
+                <div class="col-sm-10 themed-grid-col">
+                    <label for="quoteId" class="form-label">Author</label>
+                    <input asp-for="@Model.QuoteIM.Author" type="text" class="form-control " id="petName" placeholder="" value="@Model.QuoteIM.Author" required>s
+                </div>
+
+                <div class="col-md-10 themed-grid-col">
+
+                    <button class="btn btn-success btn-sm" asp-page-handler="Submit" type="submit">Submit</button>
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <input asp-for="@Model.QuoteIM.Author" value="@Model.Author" type="hidden" />
+
+            <div class="row mb-2 text-center">
+                <div class="col-md-10 themed-grid-col">
+                    <label for="quoteId" class="form-label">Dropdown Single Select</label>
+                    <select asp-for="@Model.QuoteIM.Quote" class="form-select" id="quoteId">
+                        @foreach (var item in Model.Quotes)
+                        {
+                            <option value="@item">@item</option>
+                        }
+
+                    </select>
+                </div>
+                <div class="col-md-2 themed-grid-col">
+
+                    <button class="btn btn-success btn-sm" asp-page-handler="Submit" type="submit">Submit</button>
+
+                </div>
+            </div>
+        }
+
+    </form>
+</div>

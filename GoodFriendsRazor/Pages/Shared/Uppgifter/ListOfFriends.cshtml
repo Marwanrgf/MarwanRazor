@@ -1,0 +1,85 @@
+﻿@page
+@model Razor.Pages.Shared.Uppgifter.ListOfFriendsModel
+@{
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@attribute [IgnoreAntiforgeryToken]
+
+<div class="container px-4 py-4" id="list-of-friends">
+    <h2 class="pb-2 border-bottom">List of friends</h2>
+
+    <p>
+        These are my friends. You can seach by name or address. You can also view or edit all the details. Sad but possible, if you have the right authorization you
+        could also remove a friened from my database. More fun is it to add a friend, which all my friends can do.
+    </p>
+    <div class="row mb-1 text-center">
+        <div class="col-md-8 ">
+            <form class="d-flex mt-3 mt-lg-0" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mb-2 text-center">
+        <div class="col-md-4 themed-grid-col">Name</div>
+        <div class="col-md-4 themed-grid-col">Address</div>
+        <div class="col-md-2 themed-grid-col">Info</div>
+        <div class="col-md-2 themed-grid-col">
+            Details
+        </div>
+    </div>
+
+    @foreach(var item in Model.Friends)
+    {
+        <div class="row mb-2 text-center">
+            <div class="col-md-4 themed-grid-col">
+                @item.FirstName @item.LastName
+                <div class="col-md-16">@item.Email</div>
+            </div>
+            <div class="col-md-4 themed-grid-col">
+                @item.Address.StreetAddress
+                <div class="col-md-16">@item.Address.ZipCode</div>
+                <div class="col-md-16">@item.Address.City</div>
+                <div class="col-md-16">@item.Address.Country</div>
+            </div>
+            <div class="col-md-2 themed-grid-col">
+                <div class="col-md-16">Born: @item.Birthday</div>
+                <div class="col-md-16">Pets: @item.Pets.Count</div>
+                <div class="col-md-16">Quotes: @item.Quotes.Count</div>
+            </div>
+            <div class="col-md-2 themed-grid-col">
+                <a href="~/Shared/Uppgifter/FriendView?id=@item.FriendId" class="btn btn-primary btn-sm" type="button">View</a>
+                <a href="~/Shared/Uppgifter/FriendInput?id=@item.FriendId" class="btn btn-secondary btn-sm" type="button">Edit</a>
+                
+            </div>
+        </div>
+    }
+
+    <nav aria-label="Standard pagination example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#list-of-friends" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">1</a></li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">2</a></li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">3</a></li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">4</a></li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">5</a></li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">6</a></li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">7</a></li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">8</a></li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">9</a></li>
+            <li class="page-item"><a class="page-link" href="#list-of-friends">10</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#list-of-friends" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+</div>
